@@ -4,3 +4,15 @@
   max-width: 150px;
   justify-content: space-between;
 }
+
+.edit-button {
+  margin-left: 20px;
+}
+
+.owner-name {
+  min-width: 250px;
+}
+
+.owner-item-list {
+  max-width: 600px;
+}

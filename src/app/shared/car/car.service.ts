@@ -24,6 +24,10 @@ export class CarService {
     return this.http.get(this.CAR_API + '/' + id);
   }
 
+  getOwner(id: string) {
+    return this.http.get(this.OWNER_API + '/' + id);
+  }
+
   save(car: any): Observable<any> {
     let result: Observable<Object>;
     if (car['href']) {
@@ -37,4 +41,12 @@ export class CarService {
   remove(href: string) {
     return this.http.delete(href);
   }
+
+  deleteOwners(ownerId: string): Observable<any>  {
+    return this.http.delete(this.OWNER_API + '/' + ownerId );
+  }
+
+  // updateOwner(ownerId: string): Observable<any>  {
+  //   // return this.http.put(this.OWNER_API + '/' + ownerId );
+  // }
 }

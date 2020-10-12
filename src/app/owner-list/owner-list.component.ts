@@ -1,5 +1,5 @@
-import { isNgTemplate } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CarService } from '../shared/car/car.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class OwnerListComponent implements OnInit {
   owners: Array<any>;
   checkedOwners = [];
 
-  constructor(private carService: CarService) { }
+  constructor(private carService: CarService, private router: Router) { }
 
   ngOnInit() {
     this.carService.getAllOwners().subscribe(data => {
@@ -22,11 +22,28 @@ export class OwnerListComponent implements OnInit {
   }
 
   getCheckedOwners() {
-    this.checkedOwners = this.owners.filter(x => x.checked === true).map(x => x.name);
+    this.checkedOwners = this.owners.filter(x => x.checked === true)
+      .map(x => this.getOwnerId(x._links.owner.href));
+  }
+
+  getOwnerId(href) {
+    return href.replace('http://thawing-chamber-47973.herokuapp.com/owners/', '');
   }
 
   onDelete() {
-    this.owners = this.owners.filter(x => x.checked === false);
-    console.log(this.checkedOwners);
+    try {
+      console.log(this.checkedOwners);
+      this.checkedOwners.forEach(ownerId => {
+        this.carService.deleteOwners(ownerId).subscribe(() => { });
+        this.owners = this.owners.filter(x => x.checked === false);
+      });
+    } catch (error) {
+      console.log('Cant delete owners');
+    }
+  }
+
+  onEdit(owner) {
+    const ownerId = this.getOwnerId(owner._links.owner.href);
+    this.router.navigate(['owner-edit/' + ownerId]);
   }
 }

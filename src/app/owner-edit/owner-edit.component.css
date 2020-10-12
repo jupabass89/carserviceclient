@@ -1,0 +1,9 @@
+.giphy {
+    margin: 10px;
+}
+
+.car-edit-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+}
