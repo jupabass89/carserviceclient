@@ -4,10 +4,13 @@
     <mat-list>
       <mat-list-item *ngFor="let owner of owners">
         <h3 mat-line>
-          <a mat-button [routerLink]="['/owner-edit', owner.id]">{{owner.name}}</a>
+          <mat-checkbox [(ngModel)]="owner.checked" (change)="getCheckedOwners()" color="primary">{{owner.name}}</mat-checkbox>
         </h3>
       </mat-list-item>
     </mat-list>
   </mat-card-content>
-  <button mat-fab color="primary" [routerLink]="['/car-add']">Add</button>
+  <section class="buttons">
+    <button mat-fab color="primary" [routerLink]="['/owner-add']">Add</button>
+    <button mat-fab color="primary" (click)="onDelete()" >Delete</button>
+  </section>
 </mat-card>
