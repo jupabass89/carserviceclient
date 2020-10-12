@@ -6,12 +6,18 @@ import { Observable } from 'rxjs';
 export class CarService {
   public API = '//thawing-chamber-47973.herokuapp.com';
   public CAR_API = this.API + '/cars';
+  public OWNER_API = this.API + '/owners';
+
 
   constructor(private http: HttpClient) {
   }
 
   getAll(): Observable<any> {
     return this.http.get(this.API + '/cool-cars');
+  }
+
+  getAllOwners(): Observable<any> {
+    return this.http.get(this.OWNER_API);
   }
 
   get(id: string) {
