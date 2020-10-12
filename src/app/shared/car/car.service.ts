@@ -9,8 +9,7 @@ export class CarService {
   public OWNER_API = this.API + '/owners';
 
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) { }
 
   getAll(): Observable<any> {
     return this.http.get(this.API + '/cool-cars');
@@ -48,5 +47,9 @@ export class CarService {
 
   updateOwner(owner: any, id): Observable<any>  {
     return this.http.put(this.OWNER_API + '/' + id, owner );
+  }
+
+  saveOwner(owner: any): Observable<any>  {
+    return this.http.post(this.OWNER_API, owner );
   }
 }

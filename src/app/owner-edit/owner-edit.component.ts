@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarService } from '../shared/car/car.service';
-import { GiphyService } from '../shared/giphy/giphy.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -45,13 +44,19 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
   }
 
   save(form: NgForm) {
-    this.carService.updateOwner(form, this.id).subscribe(() => {
-      this.gotoList();
-    }, error => console.error(error));
+    if (this.id) {
+      this.carService.updateOwner(form, this.id).subscribe(() => {
+        this.gotoList();
+      }, error => console.error(error));
+    } else {
+      this.carService.saveOwner(form).subscribe(() => {
+        this.gotoList();
+      }, error => console.error(error));
+    }
   }
 
   remove(href) {
-    this.carService.remove(href).subscribe(result => {
+    this.carService.remove(href).subscribe(() => {
       this.gotoList();
     }, error => console.error(error));
   }

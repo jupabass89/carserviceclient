@@ -32,7 +32,6 @@ export class OwnerListComponent implements OnInit {
 
   onDelete() {
     try {
-      console.log(this.checkedOwners);
       this.checkedOwners.forEach(ownerId => {
         this.carService.deleteOwners(ownerId).subscribe(() => { });
         this.owners = this.owners.filter(x => x.checked === false);
