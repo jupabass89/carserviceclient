@@ -13,6 +13,7 @@ import { NgForm } from '@angular/forms';
 export class OwnerEditComponent implements OnInit, OnDestroy {
   owner: any = {};
   sub: Subscription;
+  id: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -20,14 +21,14 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      const id = params.id;
-      if (id) {
-        this.carService.getOwner(id).subscribe((owner: any) => {
+      this.id = params.id;
+      if (this.id) {
+        this.carService.getOwner(this.id).subscribe((owner: any) => {
           if (owner) {
             this.owner = owner;
             this.owner.href = owner._links.self.href;
           } else {
-            console.log(`Car with id '${id}' not found, returning to list`);
+            console.log(`Car with id '${this.id}' not found, returning to list`);
             this.gotoList();
           }
         });
@@ -44,7 +45,7 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
   }
 
   save(form: NgForm) {
-    this.carService.save(form).subscribe(result => {
+    this.carService.updateOwner(form, this.id).subscribe(() => {
       this.gotoList();
     }, error => console.error(error));
   }

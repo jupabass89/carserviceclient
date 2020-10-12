@@ -10,16 +10,16 @@
         </mat-form-field>
         <mat-form-field>
           <input matInput type="text" placeholder="DNI" [(ngModel)]="owner.dni"
-                 required name="owner_dni" #owner_dni>
+                 required name="dni" #dni>
         </mat-form-field>
         <mat-form-field>
           <input matInput type="text" placeholder="Profession" [(ngModel)]="owner.profession"
-                 required name="owner_prof" #owner_prof>
+                 required name="profession" #profession>
         </mat-form-field>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" type="submit"
-                [disabled]="!carForm.form.valid">Save</button>
+                [disabled]="!carForm.form.valid">Update</button>
         <button mat-raised-button color="secondary" (click)="remove(owner.href)"
                 *ngIf="owner.href" type="button">Delete</button>
         <a mat-button routerLink="/car-list">Cancel</a>

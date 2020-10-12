@@ -46,7 +46,7 @@ export class CarService {
     return this.http.delete(this.OWNER_API + '/' + ownerId );
   }
 
-  // updateOwner(ownerId: string): Observable<any>  {
-  //   // return this.http.put(this.OWNER_API + '/' + ownerId );
-  // }
+  updateOwner(owner: any, id): Observable<any>  {
+    return this.http.put(this.OWNER_API + '/' + id, owner );
+  }
 }
