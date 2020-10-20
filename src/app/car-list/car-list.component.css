@@ -12,3 +12,7 @@
 .owner-name {
   min-width: fit-content;
 }
+
+.owners-button {
+  margin-left: 20px;
+}

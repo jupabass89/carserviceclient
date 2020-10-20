@@ -1,7 +1,7 @@
 .buttons {
   display: flex;
   flex-direction: row;
-  max-width: 150px;
+  max-width: 250px;
   justify-content: space-between;
 }
 

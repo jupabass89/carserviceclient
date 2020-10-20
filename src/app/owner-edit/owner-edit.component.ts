@@ -12,6 +12,7 @@ import { OwnerService } from '../shared/owner/owner.service';
 })
 export class OwnerEditComponent implements OnInit, OnDestroy {
   owner: any = {};
+  cars;
   sub: Subscription;
   id: string;
 
@@ -35,6 +36,9 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
           }
         });
       }
+    });
+    this.carService.getAll().subscribe(data => {
+      this.cars = data;
     });
   }
 
@@ -62,6 +66,9 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
     this.carService.remove(href).subscribe(() => {
       this.gotoList();
     }, error => console.error(error));
+    const car = this.cars.find(item => item.ownerDni === this.owner.dni);
+    car.ownerDni = null;
+    this.carService.save(car).subscribe(() => { });
   }
 }
 

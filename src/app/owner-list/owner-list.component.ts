@@ -39,18 +39,24 @@ export class OwnerListComponent implements OnInit {
   }
 
   onDelete() {
-    // this.checkedOwners.forEach(owner => {
-    //   const car = this.cars.find(item => item.ownerDni === owner.dni);
-    //   car.ownerDni = null;
-    //   console.log(car);
-    //   this.carService.save(car).subscribe(() => {});
-    // });
+    this.removeCarOwner();
+    this.deleteCheckedOwners();
+  }
+
+  removeCarOwner() {
+    this.checkedOwners.forEach(owner => {
+      const car = this.cars.find(item => item.ownerDni === owner.dni);
+      car.ownerDni = null;
+      this.carService.save(car).subscribe(() => { });
+    });
+  }
+
+  deleteCheckedOwners() {
     const toDeleteOwners = this.checkedOwners.map(x => this.getOwnerId(x._links.owner.href));
     toDeleteOwners.forEach(ownerId => {
       this.ownerService.deleteOwner(ownerId).subscribe(() => { });
       this.owners = this.owners.filter(x => x.checked === false);
     });
-
   }
 
   onEdit(owner) {
