@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarService } from '../shared/car/car.service';
 import { NgForm } from '@angular/forms';
+import { OwnerService } from '../shared/owner/owner.service';
 
 @Component({
   selector: 'app-owner-edit',
@@ -16,13 +17,15 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private carService: CarService) { }
+              private carService: CarService,
+              private ownerService: OwnerService
+              ) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = params.id;
       if (this.id) {
-        this.carService.getOwner(this.id).subscribe((owner: any) => {
+        this.ownerService.getOwner(this.id).subscribe((owner: any) => {
           if (owner) {
             this.owner = owner;
             this.owner.href = owner._links.self.href;
@@ -45,11 +48,11 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
 
   save(form: NgForm) {
     if (this.id) {
-      this.carService.updateOwner(form, this.id).subscribe(() => {
+      this.ownerService.updateOwner(form, this.id).subscribe(() => {
         this.gotoList();
       }, error => console.error(error));
     } else {
-      this.carService.saveOwner(form).subscribe(() => {
+      this.ownerService.saveOwner(form).subscribe(() => {
         this.gotoList();
       }, error => console.error(error));
     }

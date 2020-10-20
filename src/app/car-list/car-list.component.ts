@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CarService } from '../shared/car/car.service';
+import { CarService,  } from '../shared/car/car.service';
+import { APP_URL } from '../shared/constants';
 import { GiphyService } from '../shared/giphy/giphy.service';
+import { OwnerService,  } from '../shared/owner/owner.service';
 
 @Component({
   selector: 'app-car-list',
@@ -13,8 +15,9 @@ export class CarListComponent implements OnInit {
   owners;
 
   constructor(private carService: CarService,
-    private giphyService: GiphyService,
-    private router: Router
+              private giphyService: GiphyService,
+              private router: Router,
+              private ownerService: OwnerService
     ) { }
 
   ngOnInit() {
@@ -24,7 +27,7 @@ export class CarListComponent implements OnInit {
         this.giphyService.get(car.name).subscribe(url => car.giphyUrl = url);
       }
     });
-    this.carService.getAllOwners().subscribe(data => {
+    this.ownerService.getAllOwners().subscribe(data => {
       this.owners = data;
     });
   }
@@ -40,7 +43,7 @@ export class CarListComponent implements OnInit {
   getOwnersId(ownerDni) {
     try {
       return this.owners._embedded.owners.find(item => item.dni === ownerDni)._links.owner.href
-        .replace('http://thawing-chamber-47973.herokuapp.com/owners/', '');
+        .replace(APP_URL.MAIN + APP_URL.OWNER_ROUTE + '/', '');
     } catch (e) {
       return '';
     }
