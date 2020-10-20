@@ -1,3 +1,26 @@
+# Components
+
+# car-list
+List of cars related to their owner. In the case of unowned cars, 'No-owner' will appear where the owner's name would normally go.It is possible to click on the name of a car to go to the component car-edit and edit it. In the same way, you can click on an owner to go to the owner-edit component and edit or delete it.
+
+# car-edit
+In this component you can edit, add or delete a car. To edit or add, you have the OwnerDni field to relate it to an owner.
+ 
+# owner-list
+Here is a list of owners where you can select several with a checkbox to remove them. The edit button in front of each owner will allow you to enter the owner-edit component to edit or delete an owner.
+
+# owner-edit
+This component is responsible for adding, editing or deleting an owner with the name, ID and profession fields.
+
+# Services
+
+# car-service
+This service handles the connection with the API for the / cars route and thus be able to handle the functions of creating, deleting and updating cars.
+
+# owner-service
+This service handles the connection to the API for the / owners path and thus be able to handle the functions of creating, deleting and updating owners.
+
+--
 # CarServiceClient
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
